@@ -248,9 +248,7 @@
         const moves = $("#move").value;
         if (fen.length > 0) {
           stockfish.postMessage(`position fen ${fen} moves ${moves}`);
-        }
-        else
-        {
+        } else {
           stockfish.postMessage(`position startpos moves ${moves}`);
         }
         output = "";
@@ -301,13 +299,17 @@
             stockfish.addMessageListener((line) => {
               if (line.startsWith("option")) {
                 if (line.startsWith("option name UCI_Variant")) {
-                  variants = line.replace("option name UCI_Variant type combo default chess var ", "").replace(/ var /g, " ").split(" ");
+                  variants = line
+                    .replace(
+                      "option name UCI_Variant type combo default chess var ",
+                      ""
+                    )
+                    .replace(/ var /g, " ")
+                    .split(" ");
                 }
-              }
-              else if (line.startsWith(" ")) {
+              } else if (line.startsWith(" ")) {
                 output += line + "\n";
-              }
-              else {
+              } else {
                 if (line.startsWith("Fen:")) {
                   $("#fen").value = line.replace("Fen: ", "");
                   $("#move").value = "";
@@ -475,11 +477,7 @@
                 setFen();
               },
             }),
-            m(
-              "span#set",
-              { disabled: !is_ready, onclick: setFen },
-              "Set"
-            ),
+            m("span#set", { disabled: !is_ready, onclick: setFen }, "Set"),
           ]),
           m("div#input", [
             m("input#depth", {
@@ -490,16 +488,13 @@
               placeholder: "Movetime",
               disabled: !is_ready,
             }),
-            m("span#set",
-              { disabled: !is_ready, onclick: go},
-              "Go"
-            ),
-            m("span#set",
-              { disabled: !is_ready, onclick: stop},
-              "Stop"
-            ),
+            m("span#set", { disabled: !is_ready, onclick: go }, "Go"),
+            m("span#set", { disabled: !is_ready, onclick: stop }, "Stop"),
           ]),
-          m("div#outputs", [m("div#output", m("pre", output)), m("div#output2", { onupdate: scrollOutput }, m("pre", output2))]),
+          m("div#outputs", [
+            m("div#output", m("pre", output)),
+            m("div#output2", { onupdate: scrollOutput }, m("pre", output2)),
+          ]),
         ]);
       };
 
