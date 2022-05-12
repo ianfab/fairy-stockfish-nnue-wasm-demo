@@ -88,6 +88,12 @@
     box-shadow: inset 1px 1px 2px #eee;
     font-size: 11px;
   }
+
+  #links a {
+    margin: 20px;
+    font-size: 20px;
+    text-decoration: none;
+  }
 </style>
 
 <body>
@@ -394,6 +400,14 @@
             ]),
           ]),
           m("div#output", { onupdate: scrollOutput }, m("pre", output)),
+          m("div#links", [
+            m("a[href='/index.html']", "debug"),
+            m("a[href='/analysis.html']", "analysis"),
+            m(
+              "a[href='https://github.com/ianfab/fairy-stockfish-nnue-wasm-demo']",
+              "github"
+            ),
+          ]),
         ]);
       };
 
