@@ -54,7 +54,7 @@
   }
 
   #input #fen {
-    width: 50%;
+    width: 40%;
     padding: 2px 0 2px 6px;
     border: 1px solid #ddd;
     border-right: 0;
@@ -64,35 +64,27 @@
     width: 10%;
     padding: 2px 0 2px 6px;
     border: 1px solid #ddd;
-    border-right: 0;
   }
 
-  #input #movetime {
-    width: 5%;
+  #settings input {
+    width: 10%;
     padding: 2px 0 2px 6px;
     border: 1px solid #ddd;
-    border-right: 0;
+    margin-bottom: 10px;
   }
 
-  #input #depth {
-    width: 5%;
-    padding: 2px 0 2px 6px;
-    border: 1px solid #ddd;
-    border-right: 0;
-  }
-
-  #input #set {
+  button {
     display: inline-block;
     padding: 3px 6px 3px 6px;
     background: #888;
     color: #fff;
     font-weight: bold;
-    margin-right: 6px;
+    margin-left: 6px;
     cursor: pointer;
   }
 
   #input #variant {
-    width: 120px;
+    width: 10%;
     background: #eee;
   }
 
@@ -253,6 +245,24 @@
         }
         output = "";
         stockfish.postMessage(`d`);
+      };
+
+      const setThreads = async (e) => {
+        const threads = $("#threads").value;
+        stockfish.postMessage(`stop`);
+        stockfish.postMessage(`setoption name Threads value ${threads}`);
+      };
+
+      const setHash = async (e) => {
+        const hash = $("#hash").value;
+        stockfish.postMessage(`stop`);
+        stockfish.postMessage(`setoption name Hash value ${hash}`);
+      };
+
+      const setMultiPV = async (e) => {
+        const multipv = $("#multipv").value;
+        stockfish.postMessage(`stop`);
+        stockfish.postMessage(`setoption name multipv value ${multipv}`);
       };
 
       const go = () => {
@@ -477,9 +487,24 @@
                 setFen();
               },
             }),
-            m("span#set", { disabled: !is_ready, onclick: setFen }, "Set"),
+            m("button#set", { disabled: !is_ready, onclick: setFen }, "Set"),
           ]),
-          m("div#input", [
+          m("div#settings", [
+            m("input#threads", {
+              placeholder: "Threads",
+              disabled: !is_ready,
+              onchange: setThreads,
+            }),
+            m("input#hash", {
+              placeholder: "Hash",
+              disabled: !is_ready,
+              onchange: setHash,
+            }),
+            m("input#multipv", {
+              placeholder: "MultiPV",
+              disabled: !is_ready,
+              onchange: setMultiPV,
+            }),
             m("input#depth", {
               placeholder: "Depth",
               disabled: !is_ready,
@@ -488,8 +513,8 @@
               placeholder: "Movetime",
               disabled: !is_ready,
             }),
-            m("span#set", { disabled: !is_ready, onclick: go }, "Go"),
-            m("span#set", { disabled: !is_ready, onclick: stop }, "Stop"),
+            m("button", { disabled: !is_ready, onclick: go }, "Go"),
+            m("button", { disabled: !is_ready, onclick: stop }, "Stop"),
           ]),
           m("div#outputs", [
             m("div#output", m("pre", output)),
