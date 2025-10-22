@@ -1,0 +1,30 @@
+version: 2
+updates:
+  # Enable version updates for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+
+    # Group updates for better PR management
+    groups:
+      dependencies:
+        patterns:
+          - "*"
+
+    # Open pull requests for security and version updates
+    open-pull-requests-limit: 5
+
+    # Dependabot will automatically ignore prerelease versions when the current
+    # version is stable (e.g., 1.1.9). Only proper semantic versions (x.y.z)
+    # will be suggested for updates, not prereleases (x.y.z-alpha.1, etc.)
+
+    # Labels for the pull requests
+    labels:
+      - "dependencies"
+      - "automated"
+
+    # Commit message preferences
+    commit-message:
+      prefix: "chore"
+      include: "scope"
