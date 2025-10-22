@@ -28,3 +28,23 @@ updates:
     commit-message:
       prefix: "chore"
       include: "scope"
+
+  # Enable version updates for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+    # Open pull requests for GitHub Actions updates
+    open-pull-requests-limit: 5
+
+    # Labels for the pull requests
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "automated"
+
+    # Commit message preferences
+    commit-message:
+      prefix: "chore"
+      include: "scope"
